@@ -14,7 +14,18 @@ class Auth:
         """require_auth:
             handles routes that require authentication
         """
-        return False
+        if path is None:
+            return True
+        if excluded_paths is None or len(excluded_paths) == 0:
+            return True
+        if path.endswith('/'):
+            new_path = path
+        else:
+            new_path = path + '/'
+        if new_path in excluded_paths:
+            return False
+        else:
+            return True
 
     def authorization_header(self, request=None) -> str:
         """authorization_header:
