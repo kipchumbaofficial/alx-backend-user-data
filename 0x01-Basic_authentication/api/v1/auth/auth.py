@@ -33,7 +33,7 @@ class Auth:
         """
         if request is None:
             return None
-        header_value = request.header.get('Authorization')
+        header_value = request.headers.get('Authorization')
         if header_value:
             return header_value
         else:
