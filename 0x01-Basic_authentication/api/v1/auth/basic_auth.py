@@ -25,3 +25,19 @@ class BasicAuth(Auth):
         if len(authorization_header.split(" ", 1)) == 2:
             details = authorization_header.split(" ", 1)[1]
         return details
+
+    def decode_base64_authorization_header(self,
+                                           base64_authorization_header: str
+                                           ) -> str:
+        """Returns decoded authorization headeer
+        """
+        if not base64_authorization_header:
+            return None
+        if not isinstance(base64_authorization_header, str):
+            return None
+        try:
+            decoded_bytes = base64.b64decode(base64_authorization_header)
+            decoded = decoded_bytes.decode('utf-8')
+            return decoded
+        except Exception as e:
+            return None
