@@ -27,6 +27,7 @@ if auth:
 @app.before_request
 def before_request_handler():
     """Filters requests"""
+    print(auth)
     if auth and auth.require_auth(request.path, paths):
         if auth.authorization_header(request) is None:
             abort(401)
