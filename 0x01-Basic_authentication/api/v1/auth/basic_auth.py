@@ -13,6 +13,8 @@ class BasicAuth(Auth):
     def extract_base64_authorization_header(self,
                                             authorization_header: str
                                             ) -> str:
+        """Returns the value after the authentication scheme
+        """
         if not authorization_header:
             return None
         if not isinstance(authorization_header, str):
