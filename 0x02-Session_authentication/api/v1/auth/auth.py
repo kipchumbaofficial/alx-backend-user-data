@@ -44,3 +44,11 @@ class Auth:
             User invoking the API
         """
         return None
+
+    def session_cookie(self, request=None):
+        """session_cookie
+            returns the value of the cookie
+        """
+        if request is None:
+            return None
+        return request.cookies.get('_my_session_id')
