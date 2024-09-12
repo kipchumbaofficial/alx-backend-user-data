@@ -59,3 +59,15 @@ class DB:
             raise
         except InvalidRequestError as ire:
             raise
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """Updates user
+        """
+        user = self.find_user_by(id=user_id)
+        valid_columns = set([column.name
+                            for column in User.__table__.columns])
+        for key, value in kwargs.items():
+            if key not in valid_columns:
+                raise ValueError("Argument doesn't match any attribute")
+            user.key = value
+        self._session.commit()
