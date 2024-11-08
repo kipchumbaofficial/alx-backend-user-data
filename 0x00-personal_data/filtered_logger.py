@@ -2,10 +2,13 @@
 """ filter_datum:
         Returns: Log message obfuscated
 """
+from typing import List
 import re
 
 
-def filter_datum(fields: str, redaction: str,
-                 message: str, separator: str):
-    pattern = r'(' + '|'.join(map(re.escape, fields)) + r')=[^' + re.escape(separator) + r']+'
-    return re.sub(pattern, lambda m: m.group(0).split('=')[0] + '=' + redaction, message)
+def filter_datum(fields: List[str], redaction: str,
+                 message: str, separator: str) -> str:
+    """ obfuscated log messages """
+    for field in fields:
+        message = re.sub(f'{field}=(.*?){separator}', f'{field}={redaction}{separator}', message)
+    return message
