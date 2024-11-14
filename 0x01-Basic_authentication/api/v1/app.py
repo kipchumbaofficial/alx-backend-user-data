@@ -19,6 +19,9 @@ paths = [
     '/api/v1/unauthorized/',
     '/api/v1/forbidden/']
 
+if AUTH_TYPE == 'basic_auth':
+    from api.v1.auth.basic_auth import BasicAuth
+    auth = BasicAuth()
 if AUTH_TYPE == 'auth':
     from api.v1.auth.auth import Auth
     auth = Auth()
