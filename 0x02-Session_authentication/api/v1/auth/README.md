@@ -1,0 +1,3 @@
+AUTH
+---
+Handles API Authentication
