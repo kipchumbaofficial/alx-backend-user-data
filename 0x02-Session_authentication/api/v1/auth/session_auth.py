@@ -3,6 +3,7 @@
 """
 from .auth import Auth
 import uuid
+from models.user import User
 
 
 class SessionAuth(Auth):
@@ -32,3 +33,18 @@ class SessionAuth(Auth):
             if isinstance(session_id, str):
                 return SessionAuth.user_id_by_session_id.get(session_id)
         return None
+
+    def current_user(self, request=None):
+        """ Retrieves a User instance based on cookie value:
+        """
+        session_id = self.session_cookie(request)
+        if not session_id:
+            return None
+        print('Session ID:', session_id)
+
+        user_id = self.user_id_for_session_id(session_id)
+
+        print('User ID:', user_id)
+        user = User.get(user_id)
+        print('User Object:', user)
+        return user
