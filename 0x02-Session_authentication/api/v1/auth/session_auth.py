@@ -40,11 +40,8 @@ class SessionAuth(Auth):
         session_id = self.session_cookie(request)
         if not session_id:
             return None
-        print('Session ID:', session_id)
 
         user_id = self.user_id_for_session_id(session_id)
 
-        print('User ID:', user_id)
         user = User.get(user_id)
-        print('User Object:', user)
         return user
