@@ -34,3 +34,16 @@ def login() -> str:
 
     user_obj.set_cookie(cookie, session_id)
     return user_obj
+
+
+@app_views.route(
+        '/auth_session/logout',
+        methods=['DELETE'],
+        strict_slashes=False)
+def logout() -> str:
+    """ DELETE /api/v1/auth/session/logout
+    """
+    from api.v1.app import auth
+    if auth.destroy_session(request):
+        return jsonify({}), 200
+    abort(404)
