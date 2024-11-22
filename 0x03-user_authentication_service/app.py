@@ -90,22 +90,23 @@ def profile():
     abort(403)
 
 
-@app.route('/reset_password', methods=['PUT'])
+@app.route('/reset_password', methods=['POST'])
 def get_reset_password_token():
     """ Gets rest password token
     """
     try:
-        email = request.form.['email']
+        email = request.form['email']
     except KeyError:
         abort(403)
+
     try:
-        token = AUTH.get_reset_password_token(email)
+        reset_token = AUTH.get_reset_password_token(email)
     except ValueError:
         abort(403)
-    return jsonify({
-        "email": email,
-        "reset_token": token
-        })
+
+    msg = {"email": email, "reset_token": reset_token}
+
+    return jsonify(msg), 200
 
 
 if __name__ == "__main__":
